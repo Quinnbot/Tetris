@@ -1,3 +1,0 @@
-Progress 03/15/19: This week we have Updated class design. Effectively translated github to partner. Next week we will start to construct the main class and the piece class.
-An issue that had arrised was how to construct each individual array for the multitude of tetris pieces. 
-
