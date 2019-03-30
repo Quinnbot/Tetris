@@ -19,8 +19,8 @@ public class Tetris extends Application{
 	
 	public  void start(Stage primaryStage) {
 		
-		final int width = 300;
-		final int hight = 500;
+		final int width = 500;
+		final int hight = 700;
 		
 		primaryStage.setTitle("Tetris");
 		
