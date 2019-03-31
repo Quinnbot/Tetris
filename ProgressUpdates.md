@@ -22,3 +22,15 @@
 
 ### Any blocking issues/challenges need to be addressed?
 * nope
+
+
+## Week 3 (Nov 12 - Nov 29)
+
+### What did your team do last week?
+* we worked on main menu and the pieces classes
+
+### What will you do this week?
+* finish main menu and pieces class
+
+### Any blocking issues/challenges need to be addressed?
+* we had a hard time finding time to work allot on this project. this next week looks pretty open so hopefully a lot will get done.
