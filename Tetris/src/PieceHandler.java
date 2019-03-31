@@ -1,21 +1,26 @@
-
+import pieces.Hero;
 import java.util.Random;
 
-public class pieces {
+public class PieceHandler {
 
 	public static void main(String[] args) {
 		
 
 	}
 	
-	public static getRandPiece() {
+	public static Object getRandPiece() {
+		
+		Object test;
 		
 		Random ran = new Random();
 		
-		int n = ran.nextInt(7);
+		int n = ran.nextInt(7); 
 		
 		switch (n) {
 		case 0:
+			
+			return Hero(1);
+			
 			break;
 		case 1:
 			break;
@@ -32,7 +37,7 @@ public class pieces {
 				
 		}
 				
-		return peice;
+		return "how did you get here... you should never get here.";
 		
 	}
 
