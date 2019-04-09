@@ -5,11 +5,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 
-public class Tetris extends Application{
+public class Tetris extends Application {
 
+	private static Board Game;
+	
 	public static void main(String[] args) {
 		
 		launch(args);
@@ -84,27 +87,8 @@ public class Tetris extends Application{
 		
 		primaryStage.setScene(new Scene(root, width, hight));
 		primaryStage.show();
-		
-		
 	}
-	
-	/**
-	 * starts a new game
-	 * 
-	 * @param primaryStage
-	 */
-	public void newGame(Stage primaryStage) {
-		
-		final int width = 300;
-		final int hight = 500;
-		
-		primaryStage.setTitle("Tetris");
-		
-		final Pane root = new Pane();
-		
-		primaryStage.setScene(new Scene(root, width, hight));
-		primaryStage.show();
-	}
+
 	
 	
 	/**
@@ -137,6 +121,37 @@ public class Tetris extends Application{
 		
 		primaryStage.setScene(new Scene(root, width, hight));
 		primaryStage.show();
+	}
+	
+	
+	
+	
+	public void newGame(Stage primaryStage) {
+		
+		Game = new Board();
+		
+		final int width = (Game.getDeX()*10)+Game.getSep();
+		final int hight = (Game.getDey()*20)+Game.getSep();
+		
+		primaryStage.setTitle("Tetris");
+		
+		final Pane Mainroot = new Pane();
+		
+		for(int x = 0; x<10; x++) {
+			for(int y = 0; y<20; y++) {
+				Mainroot.getChildren().addAll(Game.getMain()[x][y]);
+			}
+		}
+		
+		primaryStage.setScene(new Scene(Mainroot, width, hight));
+		primaryStage.show();
+		
+		Game.setNext();
+		Game.setCurrent();
+		
+		Game.drawCurrent(1, 1);
+		Game.update();
+		
 	}
 	
 
