@@ -3,7 +3,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Board extends PieceHandler{
-
 	
 	private static OnePiece next;
 	private static OnePiece current;
@@ -14,6 +13,9 @@ public class Board extends PieceHandler{
 	private static int deX = 30;
 	private static int deY = 30;
 	private static int sep = 0;
+	
+	private static int posx = 3;
+	private static int posy = 0;
 	
 	private static int width = 10;
 	private static int hight = 20;
@@ -31,6 +33,9 @@ public class Board extends PieceHandler{
 				MainBoard[x][y].setStrokeWidth(.5);
 			}
 		}
+		
+		setNext();
+		setCurrent();
 		
 	}
 	
@@ -59,24 +64,86 @@ public class Board extends PieceHandler{
 		return MainBoard;
 	}
 	
-	public void drawCurrent(int x, int y){
-		for(int delx = 0; x<Currentint.length; x++) {
-			for(int dely = 0; y<Currentint[1].length; y++) {
-				board[x+delx][y+dely] = Currentint[x][y];
+//	public boolean Check(int x, int y) {
+//		
+//		if()
+//		
+//		return false;
+//	}
+	
+	public void clearCurrent() {
+		for(int delx = 0; delx<Currentint.length; delx++) {
+			for(int dely = 0; dely<Currentint[1].length; dely++) {
+				board[posx+delx][posy+dely] = 0;
+				
 			}
 		}
 	}
 	
+	public void drawCurrent(int x, int y){
+		for(int delx = 0; delx<Currentint.length; delx++) {
+			for(int dely = 0; dely<Currentint[1].length; dely++) {
+				board[x+delx][y+dely] = Currentint[delx][dely];
+				
+			}
+		}
+		posx = x;
+		posy = y;
+	}
+	
 	public void setNext() {
 		next = getRandPiece();
-		nextint = next.current();
+		nextint = next.getArray();
 	}
 	
 	public void setCurrent() {
 		current = next;
-		Currentint = current.current();
-		setNext();
+		Currentint = current.getArray();
+		//setNext();
 		
+	}
+	
+	public void updateCurrent() {
+		Currentint = current.getArray();
+	}
+	
+	public void rotateR() {
+		clearCurrent();
+		update();
+		current.next();
+		updateCurrent();
+		drawCurrent(posx, posy);
+		update();
+	}
+	
+	public void rotateL() {
+		clearCurrent();
+		update();
+		current.last();
+		updateCurrent();
+		drawCurrent(posx, posy);
+		update();
+	}
+	
+	public void moveR() {
+		clearCurrent();
+		update();
+		drawCurrent(posx+1, posy);
+		update();
+	}
+	
+	public void moveL() {
+		clearCurrent();
+		update();
+		drawCurrent(posx-1, posy);
+		update();
+	}
+	
+	public void moveD() {
+		clearCurrent();
+		update();
+		drawCurrent(posx, posy+1);
+		update();
 	}
 	
 	public int getDeX() {

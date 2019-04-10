@@ -1,3 +1,6 @@
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,7 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 
-public class Tetris extends Application {
+public class Tetris extends Application  {
 
 	private static Board Game;
 	
@@ -137,6 +140,28 @@ public class Tetris extends Application {
 		
 		final Pane Mainroot = new Pane();
 		
+		Mainroot.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode() == KeyCode.R) {
+					Game.rotateR();
+				}
+				if(event.getCode() == KeyCode.E) {
+					Game.rotateL();
+				}
+				if(event.getCode() == KeyCode.RIGHT) {
+					Game.moveR();
+				}
+				if(event.getCode() == KeyCode.LEFT) {
+					Game.moveL();
+				}
+				if(event.getCode() == KeyCode.DOWN) {
+					Game.moveD();
+				}
+			}
+		});
+		
+		
 		for(int x = 0; x<10; x++) {
 			for(int y = 0; y<20; y++) {
 				Mainroot.getChildren().addAll(Game.getMain()[x][y]);
@@ -145,14 +170,10 @@ public class Tetris extends Application {
 		
 		primaryStage.setScene(new Scene(Mainroot, width, hight));
 		primaryStage.show();
+		Mainroot.requestFocus();
+
 		
-		Game.setNext();
-		Game.setCurrent();
-		
-		Game.drawCurrent(1, 1);
-		Game.update();
 		
 	}
 	
-
 }

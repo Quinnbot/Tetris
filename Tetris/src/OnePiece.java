@@ -91,8 +91,10 @@ public class OnePiece {
 			{1,1},
 			{1,1}};
 	
+	private static int state  = 1;
+	
 	public OnePiece(int state){
-		
+		System.out.print(state+"\n");
 		if(state==1) {
 			state0 = Teewee1;
 			state1 = Teewee1;
@@ -115,8 +117,8 @@ public class OnePiece {
 			state0 = OrangeRicky1;
 			state1 = OrangeRicky1;
 			state2 = OrangeRicky2;
-			state3 = OrangeRicky1;
-			state4 = OrangeRicky2;
+			state3 = OrangeRicky3;
+			state4 = OrangeRicky4;
 		}else if(state==5) {
 			state0 = BlueRicky1;
 			state1 = BlueRicky1;
@@ -127,7 +129,7 @@ public class OnePiece {
 			state0 = ClevelandZ1;
 			state1 = ClevelandZ1;
 			state2 = ClevelandZ2;
-			state3 = OrangeRicky1;
+			state3 = ClevelandZ1;
 			state4 = ClevelandZ2;
 		}else if(state==7) {
 			state0 = RhodeIslandZ1;
@@ -138,33 +140,41 @@ public class OnePiece {
 		}
 		
 	}
-	public int[][] current(){
+	public int[][] getArray(){
 		return state0;
 	}
 	public int[][] next() {
-		
-		if(state0 == state1) {
+		//System.out.println("rotate State:"+state);
+		if(state == 1) {
 			state0 = state2;
-		}else if(state0 == state2) {
+			state++;
+		}else if(state == 2) {
 			state0 = state3;
-		}else if(state0 == state3) {
+			state++;
+		}else if(state == 3) {
 			state0 = state4;
-		}else if(state0 == state4) {
+			state++;
+		}else if(state == 4) {
 			state0 = state1;
+			state=1;
 		}
-		
+		//System.out.println("rotate State:"+state);
 		return state0;
 	}
 	public int[][] last() {
 		
-		if(state0 == state1) {
+		if(state == 1) {
 			state0 = state4;
-		}else if(state0 == state2) {
+			state=4;
+		}else if(state == 2) {
 			state0 = state1;
-		}else if(state0 == state3) {
+			state--;
+		}else if(state == 3) {
 			state0 = state2;
-		}else if(state0 == state4) {
+			state--;
+		}else if(state == 4) {
 			state0 = state3;
+			state--;
 		}
 		
 		return state0;
