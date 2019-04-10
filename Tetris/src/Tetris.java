@@ -25,8 +25,8 @@ public class Tetris extends Application  {
 	
 	public  void start(Stage primaryStage) {
 		
-		final int width = 500;
-		final int hight = 700;
+		final int width = 200;
+		final int hight = 200;
 		
 		primaryStage.setTitle("Tetris");
 		
@@ -45,34 +45,10 @@ public class Tetris extends Application  {
 			
 		});
 		
-		final Button btnC = new Button();
-		btnC.setText("control");
-		btnC.setLayoutX(width/2.5);
-		btnC.setLayoutY((hight/9)*2);
-		btnC.setOnAction(new EventHandler<ActionEvent>() {
-			
-			public void handle(ActionEvent event) {
-				showControls(primaryStage);
-			}
-			
-		});
-		
-		final Button btnP = new Button();
-		btnP.setText("pieces");
-		btnP.setLayoutX(width/2.5);
-		btnP.setLayoutY((hight/9)*3);
-		btnP.setOnAction(new EventHandler<ActionEvent>() {
-			
-			public void handle(ActionEvent event) {
-				System.exit(0);
-			}
-			
-		});
-		
 		final Button btnE = new Button();
 		btnE.setText("exit");
 		btnE.setLayoutX(width/2.5);
-		btnE.setLayoutY((hight/9)*4);
+		btnE.setLayoutY((hight/9)*3);
 		btnE.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent event) {
@@ -82,8 +58,6 @@ public class Tetris extends Application  {
 		});
 		
 		root.getChildren().add(btnS);
-		root.getChildren().add(btnC);
-		root.getChildren().add(btnP);
 		root.getChildren().add(btnE);
 		
 		primaryStage.setResizable(false);
@@ -99,36 +73,6 @@ public class Tetris extends Application  {
 	 * 
 	 * @param primaryStage
 	 */
-	public void showControls(Stage primaryStage) {
-		
-		final int width = 300;
-		final int hight = 500;
-		
-		primaryStage.setTitle("Tetris");
-		
-		final Pane root = new Pane();
-		
-		final Button btnB = new Button();
-		btnB.setText("go back");
-		btnB.setLayoutX(width/2.5);
-		btnB.setLayoutY((hight/9)*6);
-		btnB.setOnAction(new EventHandler<ActionEvent>() {
-			
-			public void handle(ActionEvent event) {
-				start(primaryStage);
-			}
-			
-		});
-		
-		root.getChildren().add(btnB);
-		
-		primaryStage.setScene(new Scene(root, width, hight));
-		primaryStage.show();
-	}
-	
-	
-	
-	
 	public void newGame(Stage primaryStage) {
 		
 		Game = new Board();
@@ -157,6 +101,9 @@ public class Tetris extends Application  {
 				}
 				if(event.getCode() == KeyCode.DOWN) {
 					Game.moveD();
+				}
+				if(event.getCode() == KeyCode.TAB) {
+					Game.printGrid();
 				}
 			}
 		});

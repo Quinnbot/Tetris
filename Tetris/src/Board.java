@@ -1,8 +1,11 @@
+import java.util.Random;
+import pieces.*;
+
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Board extends PieceHandler{
+public class Board{
 	
 	private static OnePiece next;
 	private static OnePiece current;
@@ -39,6 +42,65 @@ public class Board extends PieceHandler{
 		
 	}
 	
+	public void newPiece() {
+		drawCurrent(posx, posy);
+		setCurrent();
+		setNext();
+		posx=3;
+		posy=0;
+		updateCurrent();
+	}
+
+	public void collision() {
+		if (Currentint[0].length + posy == 20) {
+			newPiece();
+		} else {
+
+			if (Currentint.length == 1) {
+
+				if (board[Currentint.length + posx - 1][Currentint[0].length + posy] == 1) {
+					newPiece();
+				}
+
+			} else if (Currentint.length == 2) {
+				
+				if (board[Currentint.length + posx - 1][Currentint[0].length + posy - 1] == 1
+						&& board[Currentint.length + posx - 2][Currentint[0].length + posy] == 0
+						&&!(board[Currentint.length + posx - 1][Currentint[0].length + posy] == 0
+						&& board[Currentint.length + posx - 2][Currentint[0].length + posy]==0)) {
+					newPiece();
+				}else if (board[Currentint.length + posx - 1][Currentint[0].length + posy] == 0
+						&& board[Currentint.length + posx - 2][Currentint[0].length + posy-1] == 1
+						&&!(board[Currentint.length + posx - 1][Currentint[0].length + posy] == 0
+						&& board[Currentint.length + posx - 2][Currentint[0].length + posy]==0)) {
+					newPiece();
+				}else if(board[Currentint.length + posx - 1][Currentint[0].length + posy] == 1
+						&& board [Currentint.length + posx - 2][Currentint[0].length + posy]==1){
+					newPiece();
+				}
+
+			} else if (Currentint.length == 3) {
+				
+				if (board[Currentint.length + posx - 1][Currentint[0].length + posy] == 1
+						|| board[Currentint.length + posx - 2][Currentint[0].length + posy] == 1
+						|| board[Currentint.length + posx - 3][Currentint[0].length + posy] == 1) {
+					newPiece();
+				}
+
+			} else if (Currentint.length == 4) {
+
+				if (board[Currentint.length + posx - 1][Currentint[0].length + posy] == 1
+						|| board[Currentint.length + posx - 2][Currentint[0].length + posy] == 1
+						|| board[Currentint.length + posx - 3][Currentint[0].length + posy] == 1
+						|| board[Currentint.length + posx - 4][Currentint[0].length + posy] == 1) {
+					newPiece();
+				}
+
+			}
+
+		}
+	}
+	
 	public void update() {
 		
 		for(int x = 0; x<width; x++) {
@@ -50,7 +112,8 @@ public class Board extends PieceHandler{
 					MainBoard[x][y].setFill(Color.WHITE);
 				}
 			}
-		}
+			
+		}	
 		
 	}
 	
@@ -64,27 +127,33 @@ public class Board extends PieceHandler{
 		return MainBoard;
 	}
 	
-//	public boolean Check(int x, int y) {
-//		
-//		if()
-//		
-//		return false;
-//	}
+	public boolean checkBounds(int x, int y) {
+		if(Currentint.length+x<=10&&Currentint[0].length+y<=20) {
+			if((Currentint.length+x<=width&&Currentint[0].length+y<=hight)&&x>=0&&y>0) {
+				//if(board[Currentint.length+x][Currentint[1].length+y]!=1) {
+					return true;
+				//}
+			}
+		}
+		return false;
+	}
 	
 	public void clearCurrent() {
 		for(int delx = 0; delx<Currentint.length; delx++) {
-			for(int dely = 0; dely<Currentint[1].length; dely++) {
+			for(int dely = 0; dely<Currentint[0].length; dely++) {
+				if(board[posx+delx][posy+dely] !=0) {
 				board[posx+delx][posy+dely] = 0;
-				
+				}
 			}
 		}
 	}
 	
 	public void drawCurrent(int x, int y){
 		for(int delx = 0; delx<Currentint.length; delx++) {
-			for(int dely = 0; dely<Currentint[1].length; dely++) {
+			for(int dely = 0; dely<Currentint[0].length; dely++) {
+				if(Currentint[delx][dely]!=0) {
 				board[x+delx][y+dely] = Currentint[delx][dely];
-				
+				}
 			}
 		}
 		posx = x;
@@ -112,8 +181,15 @@ public class Board extends PieceHandler{
 		update();
 		current.next();
 		updateCurrent();
-		drawCurrent(posx, posy);
+		if(checkBounds(posx, posy)) {
+			drawCurrent(posx, posy);
+		}else {
+			current.last();
+			updateCurrent();
+			drawCurrent(posx, posy);
+		}
 		update();
+		
 	}
 	
 	public void rotateL() {
@@ -121,29 +197,51 @@ public class Board extends PieceHandler{
 		update();
 		current.last();
 		updateCurrent();
-		drawCurrent(posx, posy);
+		if(checkBounds(posx, posy)) {
+			drawCurrent(posx, posy);
+		}else {
+			current.next();
+			updateCurrent();
+			drawCurrent(posx, posy);
+		}
 		update();
+		collision();
 	}
 	
 	public void moveR() {
 		clearCurrent();
 		update();
-		drawCurrent(posx+1, posy);
+		if(checkBounds(posx+1, posy)) {
+			drawCurrent(posx+1, posy);
+		}else {
+			drawCurrent(posx, posy);
+		}
 		update();
+		collision();
 	}
 	
 	public void moveL() {
 		clearCurrent();
 		update();
-		drawCurrent(posx-1, posy);
+		if(checkBounds(posx-1, posy)) {
+			drawCurrent(posx-1, posy);
+		}else {
+			drawCurrent(posx, posy);
+		}
 		update();
+		collision();
 	}
 	
 	public void moveD() {
 		clearCurrent();
 		update();
-		drawCurrent(posx, posy+1);
+		if(checkBounds(posx, posy+1)) {
+			drawCurrent(posx, posy+1);
+		}else {
+			drawCurrent(posx, posy);
+		}
 		update();
+		collision();
 	}
 	
 	public int getDeX() {
@@ -154,6 +252,25 @@ public class Board extends PieceHandler{
 	}
 	public int getSep() {
 		return sep;
+	}
+	public void printGrid(){
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		for(int x = 0; x<width; x++) {
+			for(int y = 0; y<hight; y++) {
+				System.out.print(" "+board[x][y]+" ");
+			}
+			System.out.print("\n");
+		}
+	}
+	
+	public static OnePiece getRandPiece() {
+		
+		Random ran = new Random();
+		
+		int n = ran.nextInt(7); 
+		
+		return new OnePiece(n+1);
+		
 	}
 	
 }

@@ -1,191 +1,93 @@
-public class OnePiece {
-	//basic
-	private static int state0[][] = {
-			{1}};
-	private static int state1[][] = {
-			{1}};
-	private static int state2[][] = {
-			{1}};
-	private static int state3[][] = {
-			{1}};
-	private static int state4[][] = {
-			{1}};
-	
-	//Teewee
-	private static int Teewee1[][] = {
-			{0,1,0},
-			{1,1,1}};
-	private static int Teewee2[][] = {
-			{1,0},
-			{1,1},
-			{1,0}};
-	private static int Teewee3[][] = {
-			{1,1,1},
-			{0,1,0}};
-	private static int Teewee4[][] = {
-			{0,1},
-			{1,1},
-			{0,1}};
-	
-	//blueRicky
-	private static int BlueRicky1[][] = {
-			{1,0,0},
-			{1,1,1}};
-	private static int BlueRicky2[][] = {
-			{1,1},
-			{1,0},
-			{1,0}};
-	private static int BlueRicky3[][] = {
-			{1,1,1},
-			{0,0,1}};
-	private static int BlueRicky4[][] = {
-			{0,1},
-			{0,1},
-			{1,1}};
-	
-	//OrangeRicky
-	private static int OrangeRicky1[][] = {
-			{0,0,1},
-			{1,1,1}};
-	private static int OrangeRicky2[][] = {
-			{1,0},
-			{1,0},
-			{1,1}};
-	private static int OrangeRicky3[][] = {
-			{1,1,1},
-			{1,0,0}};
-	private static int OrangeRicky4[][] = {
-			{1,1},
-			{0,1},
-			{0,1}};
-	
-	//CleveLandZ
-	private static int ClevelandZ1[][] = {
-			{1,1,0},
-			{0,1,1}};
-	private static int ClevelandZ2[][] = {
-			{0,1},
-			{1,1},
-			{1,0}};
-	
-	//RhodeIslandZ
-	private static int RhodeIslandZ1[][] = {
-			{0,1,1},
-			{1,1,0}};
-	private static int RhodeIslandZ2[][] = {
-			{1,0},
-			{1,1},
-			{0,1}};
-	
-	//Hero
-	private static int Hero1[][] = {
-			{1},
-			{1},
-			{1},
-			{1}};
-	private static int Hero2[][] = {
-			{1,1,1,1}};
-	
-	//Smashboy
-	private static int SmashBoy1[][] = {
-			{1,1},
-			{1,1}};
+
+
+import pieces.*;
+
+public class OnePiece  {
+	private static Piece use;
 	
 	private static int state  = 1;
 	
 	public OnePiece(int state){
 		System.out.print(state+"\n");
 		if(state==1) {
-			state0 = Teewee1;
-			state1 = Teewee1;
-			state2 = Teewee2;
-			state3 = Teewee3;
-			state4 = Teewee4;
+			use = new Teewee();
 		}else if(state==2) {
-			state0 = Hero1;
-			state1 = Hero1;
-			state2 = Hero2;
-			state3 = Hero1;
-			state4 = Hero2;
+			use = new Hero();
 		}else if(state==3) {
-			state0 = SmashBoy1;
-			state1 = SmashBoy1;
-			state2 = SmashBoy1;
-			state3 = SmashBoy1;
-			state4 = SmashBoy1;
+			use = new Smashboy();
 		}else if(state==4) {
-			state0 = OrangeRicky1;
-			state1 = OrangeRicky1;
-			state2 = OrangeRicky2;
-			state3 = OrangeRicky3;
-			state4 = OrangeRicky4;
+			use = new OrangeRicky();
 		}else if(state==5) {
-			state0 = BlueRicky1;
-			state1 = BlueRicky1;
-			state2 = BlueRicky2;
-			state3 = BlueRicky3;
-			state4 = BlueRicky4;
+			use = new blueRicky();
 		}else if(state==6) {
-			state0 = ClevelandZ1;
-			state1 = ClevelandZ1;
-			state2 = ClevelandZ2;
-			state3 = ClevelandZ1;
-			state4 = ClevelandZ2;
+			use = new CleveLandZ();
 		}else if(state==7) {
-			state0 = RhodeIslandZ1;
-			state1 = RhodeIslandZ1;
-			state2 = RhodeIslandZ2;
-			state3 = RhodeIslandZ1;
-			state4 = RhodeIslandZ2;
+			use = new RhodeIslandZ();
 		}
 		
 	}
+	
 	public int[][] getArray(){
-		return state0;
-	}
-	public int[][] next() {
-		//System.out.println("rotate State:"+state);
 		if(state == 1) {
-			state0 = state2;
-			state++;
+			return use.get1();
 		}else if(state == 2) {
-			state0 = state3;
-			state++;
+			return use.get2();
 		}else if(state == 3) {
-			state0 = state4;
-			state++;
+			return use.get3();
 		}else if(state == 4) {
-			state0 = state1;
-			state=1;
+			return use.get4();
 		}
-		//System.out.println("rotate State:"+state);
-		return state0;
+		return null;
+	}
+	
+	public int[][] setState(int s) {
+		state = s;
+		
+		if(state == 1) {
+			return use.get1();
+		}else if(state == 2) {
+			return use.get2();
+		}else if(state == 3) {
+			return use.get3();
+		}else if(state == 4) {
+			return use.get4();
+		}
+		return null;
+		
+	}
+	
+	public int[][] next() {
+		if(state == 1) {
+			state++;
+			return use.get1();
+		}else if(state == 2) {
+			state++;
+			return use.get2();
+		}else if(state == 3) {
+			state++;
+			return use.get3();
+		}else if(state == 4) {
+			state=1;
+			return use.get4();
+		}
+		return null;
 	}
 	public int[][] last() {
 		
 		if(state == 1) {
-			state0 = state4;
 			state=4;
+			return use.get1();
 		}else if(state == 2) {
-			state0 = state1;
 			state--;
+			return use.get2();
 		}else if(state == 3) {
-			state0 = state2;
 			state--;
+			return use.get3();
 		}else if(state == 4) {
-			state0 = state3;
 			state--;
+			return use.get4();
 		}
-		
-		return state0;
-	}
-	
-	public int getWidth() {
-		return state0.length;
-	}
-	
-	public int getHight() {
-		return state0[1].length;
+		return null;
 	}
 
 }
