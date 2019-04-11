@@ -34,3 +34,15 @@
 
 ### Any blocking issues/challenges need to be addressed?
 * we had a hard time finding time to work allot on this project. this next week looks pretty open so hopefully a lot will get done.
+
+
+## Week 4 (Nov 12 - Nov 29)
+
+### What did your team do last week?
+* I was sick all week
+
+### What will you do this week?
+* finish main menu, Pieces, Controls, and Board classes.
+
+### Any blocking issues/challenges need to be addressed?
+* I was sick all week so its crunch time this week

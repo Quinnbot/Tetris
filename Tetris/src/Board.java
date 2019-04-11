@@ -7,33 +7,35 @@ import javafx.scene.shape.Rectangle;
 
 public class Board{
 	
-	private static OnePiece next;
-	private static OnePiece current;
+	protected static OnePiece next;//next piece
+	protected static OnePiece current;//current piece
 	
-	private static int[][] nextint;
-	private static int[][] Currentint;
+	protected static int[][] nextInt;//next piece int array
+	protected static int[][] currentInt;//current picec 
 	
-	private static int deX = 30;
-	private static int deY = 30;
-	private static int sep = 0;
+	protected static int deX = 30;//box size x
+	protected static int deY = 30;//box size y
+	protected static int sep = 0;//window padding
 	
-	private static int posx = 3;
-	private static int posy = 0;
+	protected static int posx = 3;//position of the current piece x
+	protected static int posy = 0;//position of the current piece y
 	
-	private static int width = 10;
-	private static int hight = 20;
+	protected static int width = 10;//width of the game board
+	protected static int height = 20;//Hight of the game board
 	
-	private static int board[][] = new int[width][hight];
-	private static Rectangle MainBoard[][] = new Rectangle[width][hight];
-	
+	protected static int board[][] = new int[width][height];//int array of the board
+	protected static Rectangle mainBoard[][] = new Rectangle[width][height];//rectangle array of the board
+	/**
+	 * shows the array of squares. and sets up the first piece.
+	 */
 	public Board(){
 		
 		for(int x = 0; x<width; x++) {
-			for(int y = 0; y<hight; y++) {
-				MainBoard[x][y] = new Rectangle((deX*x)+sep,(deY*y)+sep,deX,deY);
-				MainBoard[x][y].setFill(Color.WHITE);
-				MainBoard[x][y].setStroke(Color.BLACK);
-				MainBoard[x][y].setStrokeWidth(.5);
+			for(int y = 0; y<height; y++) {
+				mainBoard[x][y] = new Rectangle((deX*x)+sep,(deY*y)+sep,deX,deY);
+				mainBoard[x][y].setFill(Color.WHITE);
+				mainBoard[x][y].setStroke(Color.BLACK);
+				mainBoard[x][y].setStrokeWidth(.5);
 			}
 		}
 		
@@ -42,6 +44,10 @@ public class Board{
 		
 	}
 	
+	
+	/**
+	 * leaves the current piece where it is and gets a new one.
+	 */
 	public void newPiece() {
 		drawCurrent(posx, posy);
 		setCurrent();
@@ -51,48 +57,51 @@ public class Board{
 		updateCurrent();
 	}
 
+	/**
+	 * checks for collision with the bottom of the board or with other pieces.
+	 */
 	public void collision() {
-		if (Currentint[0].length + posy == 20) {
+		if (currentInt[0].length + posy == 20) {
 			newPiece();
 		} else {
 
-			if (Currentint.length == 1) {
+			if (currentInt.length == 1) {//1 wide pieces
 
-				if (board[Currentint.length + posx - 1][Currentint[0].length + posy] == 1) {
+				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1) {
 					newPiece();
 				}
 
-			} else if (Currentint.length == 2) {
+			} else if (currentInt.length == 2) {//2 wide pieces
 				
-				if (board[Currentint.length + posx - 1][Currentint[0].length + posy - 1] == 1
-						&& board[Currentint.length + posx - 2][Currentint[0].length + posy] == 0
-						&&!(board[Currentint.length + posx - 1][Currentint[0].length + posy] == 0
-						&& board[Currentint.length + posx - 2][Currentint[0].length + posy]==0)) {
+				if (board[currentInt.length + posx - 1][currentInt[0].length + posy - 1] == 1
+						&& board[currentInt.length + posx - 2][currentInt[0].length + posy] == 0
+						&&!(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0//checks for a right corner
+						&& board[currentInt.length + posx - 2][currentInt[0].length + posy]==0)) {
 					newPiece();
-				}else if (board[Currentint.length + posx - 1][Currentint[0].length + posy] == 0
-						&& board[Currentint.length + posx - 2][Currentint[0].length + posy-1] == 1
-						&&!(board[Currentint.length + posx - 1][Currentint[0].length + posy] == 0
-						&& board[Currentint.length + posx - 2][Currentint[0].length + posy]==0)) {
+				}else if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0
+						&& board[currentInt.length + posx - 2][currentInt[0].length + posy-1] == 1//checks for a left corner
+						&&!(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0
+						&& board[currentInt.length + posx - 2][currentInt[0].length + posy]==0)) {
 					newPiece();
-				}else if(board[Currentint.length + posx - 1][Currentint[0].length + posy] == 1
-						&& board [Currentint.length + posx - 2][Currentint[0].length + posy]==1){
+				}else if(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
+						&& board [currentInt.length + posx - 2][currentInt[0].length + posy]==1){//checks for a flat surface
 					newPiece();
 				}
 
-			} else if (Currentint.length == 3) {
+			} else if (currentInt.length == 3) {//3 wide pieces
 				
-				if (board[Currentint.length + posx - 1][Currentint[0].length + posy] == 1
-						|| board[Currentint.length + posx - 2][Currentint[0].length + posy] == 1
-						|| board[Currentint.length + posx - 3][Currentint[0].length + posy] == 1) {
+				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
+						|| board[currentInt.length + posx - 2][currentInt[0].length + posy] == 1
+						|| board[currentInt.length + posx - 3][currentInt[0].length + posy] == 1) {
 					newPiece();
 				}
 
-			} else if (Currentint.length == 4) {
+			} else if (currentInt.length == 4) {//4 wide pieces
 
-				if (board[Currentint.length + posx - 1][Currentint[0].length + posy] == 1
-						|| board[Currentint.length + posx - 2][Currentint[0].length + posy] == 1
-						|| board[Currentint.length + posx - 3][Currentint[0].length + posy] == 1
-						|| board[Currentint.length + posx - 4][Currentint[0].length + posy] == 1) {
+				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
+						|| board[currentInt.length + posx - 2][currentInt[0].length + posy] == 1
+						|| board[currentInt.length + posx - 3][currentInt[0].length + posy] == 1
+						|| board[currentInt.length + posx - 4][currentInt[0].length + posy] == 1) {
 					newPiece();
 				}
 
@@ -100,36 +109,53 @@ public class Board{
 
 		}
 	}
-	
+	/**
+	 * this translates the ones and zeros in the board array to the frame.
+	 */
 	public void update() {
 		
 		for(int x = 0; x<width; x++) {
-			for(int y = 0; y<hight; y++) {
+			for(int y = 0; y<height; y++) {
 				if(board[x][y]==1) {
-					MainBoard[x][y].setFill(Color.BLACK);
+					mainBoard[x][y].setFill(Color.BLACK);
 				}
 				if(board[x][y]==0) {
-					MainBoard[x][y].setFill(Color.WHITE);
+					mainBoard[x][y].setFill(Color.WHITE);
 				}
 			}
 			
 		}	
 		
 	}
-	
+	/**
+	 * change a the pixel at (x, y) to the value of val
+	 * 
+	 * @param x	x coordinate
+	 * @param y	y coordinate
+	 * @param val	what it changes to
+	 */
 	public void changeBoard(int x,int y,int val) {
 		
 		board[x-1][y-1] = val;
 		
 	}
 	
+	/**
+	 * @return the main array of rectangle objects.
+	 */
 	public Rectangle[][] getMain() {
-		return MainBoard;
+		return mainBoard;
 	}
 	
+	/**
+	 * supply x and y checks if the breaks and rules like out of bounds.
+	 * @param x	x coordinate
+	 * @param y	y coordinate
+	 * @return true if the move is legal, false if its not
+	 */
 	public boolean checkBounds(int x, int y) {
-		if(Currentint.length+x<=10&&Currentint[0].length+y<=20) {
-			if((Currentint.length+x<=width&&Currentint[0].length+y<=hight)&&x>=0&&y>0) {
+		if(currentInt.length+x<=10&&currentInt[0].length+y<=20) {
+			if((currentInt.length+x<=width&&currentInt[0].length+y<=height)&&x>=0&&y>0) {
 				//if(board[Currentint.length+x][Currentint[1].length+y]!=1) {
 					return true;
 				//}
@@ -138,111 +164,56 @@ public class Board{
 		return false;
 	}
 	
+	/**
+	 * clears the current piece thats being used from the board.
+	 */
 	public void clearCurrent() {
-		for(int delx = 0; delx<Currentint.length; delx++) {
-			for(int dely = 0; dely<Currentint[0].length; dely++) {
+		for(int delx = 0; delx<currentInt.length; delx++) {
+			for(int dely = 0; dely<currentInt[0].length; dely++) {
 				if(board[posx+delx][posy+dely] !=0) {
 				board[posx+delx][posy+dely] = 0;
 				}
 			}
 		}
 	}
-	
+	/**
+	 * draws the current piece at (x, y)
+	 * @param x	x coordinate
+	 * @param y	y coordinate
+	 */
 	public void drawCurrent(int x, int y){
-		for(int delx = 0; delx<Currentint.length; delx++) {
-			for(int dely = 0; dely<Currentint[0].length; dely++) {
-				if(Currentint[delx][dely]!=0) {
-				board[x+delx][y+dely] = Currentint[delx][dely];
+		for(int delx = 0; delx<currentInt.length; delx++) {
+			for(int dely = 0; dely<currentInt[0].length; dely++) {
+				if(currentInt[delx][dely]!=0) {
+				board[x+delx][y+dely] = currentInt[delx][dely];
 				}
 			}
 		}
 		posx = x;
 		posy = y;
 	}
-	
+	/**
+	 * sets the next piece to be used.
+	 */
 	public void setNext() {
 		next = getRandPiece();
-		nextint = next.getArray();
+		nextInt = next.getArray();
 	}
-	
+	/**
+	 * sets the current piece from the next one.
+	 */
 	public void setCurrent() {
 		current = next;
-		Currentint = current.getArray();
+		currentInt = current.getArray();
 		//setNext();
 		
 	}
-	
+	/**
+	 * gets the current array for the piece from the onePiece class. 
+	 */
 	public void updateCurrent() {
-		Currentint = current.getArray();
-	}
-	
-	public void rotateR() {
-		clearCurrent();
-		update();
-		current.next();
-		updateCurrent();
-		if(checkBounds(posx, posy)) {
-			drawCurrent(posx, posy);
-		}else {
-			current.last();
-			updateCurrent();
-			drawCurrent(posx, posy);
-		}
-		update();
-		
-	}
-	
-	public void rotateL() {
-		clearCurrent();
-		update();
-		current.last();
-		updateCurrent();
-		if(checkBounds(posx, posy)) {
-			drawCurrent(posx, posy);
-		}else {
-			current.next();
-			updateCurrent();
-			drawCurrent(posx, posy);
-		}
-		update();
-		collision();
-	}
-	
-	public void moveR() {
-		clearCurrent();
-		update();
-		if(checkBounds(posx+1, posy)) {
-			drawCurrent(posx+1, posy);
-		}else {
-			drawCurrent(posx, posy);
-		}
-		update();
-		collision();
-	}
-	
-	public void moveL() {
-		clearCurrent();
-		update();
-		if(checkBounds(posx-1, posy)) {
-			drawCurrent(posx-1, posy);
-		}else {
-			drawCurrent(posx, posy);
-		}
-		update();
-		collision();
-	}
-	
-	public void moveD() {
-		clearCurrent();
-		update();
-		if(checkBounds(posx, posy+1)) {
-			drawCurrent(posx, posy+1);
-		}else {
-			drawCurrent(posx, posy);
-		}
-		update();
-		collision();
-	}
+		currentInt = current.getArray();
+	}	
 	
 	public int getDeX() {
 		return deX;
@@ -253,16 +224,10 @@ public class Board{
 	public int getSep() {
 		return sep;
 	}
-	public void printGrid(){
-		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		for(int x = 0; x<width; x++) {
-			for(int y = 0; y<hight; y++) {
-				System.out.print(" "+board[x][y]+" ");
-			}
-			System.out.print("\n");
-		}
-	}
 	
+	/**
+	 * @return gets a random piece from the onePiece class.
+	 */
 	public static OnePiece getRandPiece() {
 		
 		Random ran = new Random();

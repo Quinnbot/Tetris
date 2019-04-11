@@ -1,8 +1,8 @@
 package pieces;
 
 public interface Piece {
-	
-	public int[][] get1();
+	//basic layout for the pieces
+	int[][] get1();
 	
 	int[][] get2();
 	

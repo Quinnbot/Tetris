@@ -14,15 +14,20 @@ import javafx.stage.Stage;
 
 public class Tetris extends Application  {
 
-	private static Board Game;
-	
+	private static Controls Game;//to store the game object in.
+	/**
+	 * starts the game
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		launch(args);
 
 	}
 	
-	
+	/**
+	 * displays the main game screen with the options to start the game and exit.
+	 */
 	public  void start(Stage primaryStage) {
 		
 		final int width = 200;
@@ -37,7 +42,7 @@ public class Tetris extends Application  {
 		btnS.setText("Start!");
 		btnS.setLayoutX(width/2.43);
 		btnS.setLayoutY(hight/9);
-		btnS.setOnAction(new EventHandler<ActionEvent>() {
+		btnS.setOnAction(new EventHandler<ActionEvent>() {//start game button
 			
 			public void handle(ActionEvent event) {
 				newGame(primaryStage);
@@ -49,7 +54,7 @@ public class Tetris extends Application  {
 		btnE.setText("exit");
 		btnE.setLayoutX(width/2.5);
 		btnE.setLayoutY((hight/9)*3);
-		btnE.setOnAction(new EventHandler<ActionEvent>() {
+		btnE.setOnAction(new EventHandler<ActionEvent>() {//exit button
 			
 			public void handle(ActionEvent event) {
 				System.exit(0);
@@ -69,13 +74,13 @@ public class Tetris extends Application  {
 	
 	
 	/**
-	 * shows Controls
+	 *stores the game object and sets up the controls.
 	 * 
 	 * @param primaryStage
 	 */
 	public void newGame(Stage primaryStage) {
 		
-		Game = new Board();
+		Game = new Controls();
 		
 		final int width = (Game.getDeX()*10)+Game.getSep();
 		final int hight = (Game.getDey()*20)+Game.getSep();
@@ -84,7 +89,7 @@ public class Tetris extends Application  {
 		
 		final Pane Mainroot = new Pane();
 		
-		Mainroot.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		Mainroot.setOnKeyPressed(new EventHandler<KeyEvent>() {//controls
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode() == KeyCode.R) {
@@ -111,13 +116,13 @@ public class Tetris extends Application  {
 		
 		for(int x = 0; x<10; x++) {
 			for(int y = 0; y<20; y++) {
-				Mainroot.getChildren().addAll(Game.getMain()[x][y]);
+				Mainroot.getChildren().addAll(Game.getMain()[x][y]);//packs the game board
 			}
 		}
 		
 		primaryStage.setScene(new Scene(Mainroot, width, hight));
 		primaryStage.show();
-		Mainroot.requestFocus();
+		Mainroot.requestFocus();//sets focus so that you can actually use the controls.
 
 		
 		

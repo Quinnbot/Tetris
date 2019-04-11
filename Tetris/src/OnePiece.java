@@ -3,12 +3,14 @@
 import pieces.*;
 
 public class OnePiece  {
-	private static Piece use;
+	private static Piece use;//Variable to store the interface of the piece
 	
-	private static int state  = 1;
-	
+	private static int state  = 1;//what rotation state the piece is in
+	/**
+	 * picks witch piece this object will represent
+	 * @param state
+	 */
 	public OnePiece(int state){
-		System.out.print(state+"\n");
 		if(state==1) {
 			use = new Teewee();
 		}else if(state==2) {
@@ -26,7 +28,9 @@ public class OnePiece  {
 		}
 		
 	}
-	
+	/**
+	 * @return gets the current array state
+	 */
 	public int[][] getArray(){
 		if(state == 1) {
 			return use.get1();
@@ -39,7 +43,10 @@ public class OnePiece  {
 		}
 		return null;
 	}
-	
+	/**
+	 * @param s	which state you want from 1 to 4.
+	 * @return returns the array for that state.
+	 */
 	public int[][] setState(int s) {
 		state = s;
 		
@@ -55,7 +62,10 @@ public class OnePiece  {
 		return null;
 		
 	}
-	
+	/**
+	 * cycles through the states forward.
+	 * @return next array
+	 */
 	public int[][] next() {
 		if(state == 1) {
 			state++;
@@ -72,6 +82,11 @@ public class OnePiece  {
 		}
 		return null;
 	}
+	
+	/**
+	 * cycles through the states backwards.
+	 * @return next array
+	 */
 	public int[][] last() {
 		
 		if(state == 1) {
