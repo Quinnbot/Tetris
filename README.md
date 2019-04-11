@@ -9,7 +9,6 @@ Quinn Montgomery
 A simple version of Tetris made for the final project of computer science II.  
 
 ## Flow
-[UML Chart]
 https://imagebin.ca/v/4dIhlHQrIoTw
 
 ## Problem
