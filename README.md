@@ -6,20 +6,28 @@ Flying Curtains
 ## Team Members
 Quinn Montgomery
 
+## What?
 A simple version of Tetris made for the final project of computer science II.  
 
-## Flow
-https://imagebin.ca/v/4dIhlHQrIoTw
+## Why?
+there are not enough Tetris clones! And I love tetris! 
 
-## Problem
-there are not enough Tetris clones!
+## How
+https://imgur.com/9wzwgwt
 
-## Solutions
-* using an interface for all the piece classes
-* adding some
+## Deliverables
+* A semi working tetris game
 
-## How to Play
+## Plan
+*week one
+*make flow chart
+*week two
+*make all piece classes and piece controler
+*week three
+*make main game class and java fx
+*week four
+## Getting started
 Clone this Repository and run in eclipse!
 
 ## Demo Video
-https://www.youtube.com/watch?v=AYRF3l-jvqU&t=10s
+https://youtu.be/8ZJcM3gLSsY
