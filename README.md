@@ -19,13 +19,13 @@ https://imgur.com/9wzwgwt
 * A semi working tetris game
 
 ## Plan
-1 week one
+* week one
 * make flow chart
-2 week two
+* week two
 * make all piece classes and piece controler
-3 week three
+* week three
 * make main game class and java fx
-4 week four
+* week four
 ## Getting started
 Clone this Repository and run in eclipse!
 
