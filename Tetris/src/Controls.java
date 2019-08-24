@@ -1,8 +1,33 @@
+import java.util.TimerTask;
+import java.util.Timer;
+
+
+
 
 public class Controls extends Board {
 	/**
 	 * rotates right by getting the next state from the onePiece class.
 	 */
+	public Timer timer = new Timer();
+	public void startTimer() {
+		
+		TimerTask autoDown = new TimerTask() {
+	        public void run() {
+	            moveD();
+	        }
+	    };
+          
+        timer.schedule(autoDown, 0, 1000);
+		
+	}
+	
+	public void stopTimer() {
+		
+		//timer.cancel();
+		timer.purge();
+		
+	}
+	
 	public void rotateR() {
 		clearCurrent();
 		update();

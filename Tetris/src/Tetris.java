@@ -105,6 +105,7 @@ public class Tetris extends Application  {
 					Game.moveL();
 				}
 				if(event.getCode() == KeyCode.DOWN) {
+					Game.stopTimer();
 					Game.moveD();
 				}
 				if(event.getCode() == KeyCode.TAB) {
@@ -122,6 +123,7 @@ public class Tetris extends Application  {
 		
 		primaryStage.setScene(new Scene(Mainroot, width, hight));
 		primaryStage.show();
+		Game.startTimer();
 		Mainroot.requestFocus();//sets focus so that you can actually use the controls.
 
 		
