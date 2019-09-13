@@ -58,56 +58,75 @@ public class Board{
 	}
 
 	/**
-	 * checks for collision with the bottom of the board or with other pieces.
+	 * pass in an x and y and see if the current piece would fit.
 	 */
-	public void collision() {
-		if (currentInt[0].length + posy == 20) {
-			newPiece();
-		} else {
-
-			if (currentInt.length == 1) {//1 wide pieces
-
-				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1) {
-					newPiece();
+	public boolean collision(int x, int y) {
+		
+		if (currentInt[0].length + posy <= 20) {
+			return false;
+		}else {
+			int[][] boardCopy = board;
+			
+			for(int delx = 0; delx<currentInt.length; delx++) {
+				for(int dely = 0; dely<currentInt[0].length; dely++) {
+					if(currentInt[delx][dely]!=0) {
+					board[x+delx][y+dely] = currentInt[delx][dely];
+					}
 				}
-
-			} else if (currentInt.length == 2) {//2 wide pieces
-				
-				if (board[currentInt.length + posx - 1][currentInt[0].length + posy - 1] == 1
-						&& board[currentInt.length + posx - 2][currentInt[0].length + posy] == 0
-						&&!(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0//checks for a right corner
-						&& board[currentInt.length + posx - 2][currentInt[0].length + posy]==0)) {
-					newPiece();
-				}else if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0
-						&& board[currentInt.length + posx - 2][currentInt[0].length + posy-1] == 1//checks for a left corner
-						&&!(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0
-						&& board[currentInt.length + posx - 2][currentInt[0].length + posy]==0)) {
-					newPiece();
-				}else if(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
-						&& board [currentInt.length + posx - 2][currentInt[0].length + posy]==1){//checks for a flat surface
-					newPiece();
-				}
-
-			} else if (currentInt.length == 3) {//3 wide pieces
-				
-				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
-						|| board[currentInt.length + posx - 2][currentInt[0].length + posy] == 1
-						|| board[currentInt.length + posx - 3][currentInt[0].length + posy] == 1) {
-					newPiece();
-				}
-
-			} else if (currentInt.length == 4) {//4 wide pieces
-
-				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
-						|| board[currentInt.length + posx - 2][currentInt[0].length + posy] == 1
-						|| board[currentInt.length + posx - 3][currentInt[0].length + posy] == 1
-						|| board[currentInt.length + posx - 4][currentInt[0].length + posy] == 1) {
-					newPiece();
-				}
-
 			}
-
+			return true;
+			
 		}
+		
+		
+		
+//		if (currentInt[0].length + posy == 20) {
+//			newPiece();
+//		} else {
+//
+//			if (currentInt.length == 1) {//1 wide pieces
+//
+//				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1) {
+//					newPiece();
+//				}
+//
+//			} else if (currentInt.length == 2) {//2 wide pieces
+//				
+//				if (board[currentInt.length + posx - 1][currentInt[0].length + posy - 1] == 1
+//						&& board[currentInt.length + posx - 2][currentInt[0].length + posy] == 0
+//						&&!(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0//checks for a right corner
+//						&& board[currentInt.length + posx - 2][currentInt[0].length + posy]==0)) {
+//					newPiece();
+//				}else if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0
+//						&& board[currentInt.length + posx - 2][currentInt[0].length + posy-1] == 1//checks for a left corner
+//						&&!(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 0
+//						&& board[currentInt.length + posx - 2][currentInt[0].length + posy]==0)) {
+//					newPiece();
+//				}else if(board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
+//						&& board [currentInt.length + posx - 2][currentInt[0].length + posy]==1){//checks for a flat surface
+//					newPiece();
+//				}
+//
+//			} else if (currentInt.length == 3) {//3 wide pieces
+//				
+//				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
+//						|| board[currentInt.length + posx - 2][currentInt[0].length + posy] == 1
+//						|| board[currentInt.length + posx - 3][currentInt[0].length + posy] == 1) {
+//					newPiece();
+//				}
+//
+//			} else if (currentInt.length == 4) {//4 wide pieces
+//
+//				if (board[currentInt.length + posx - 1][currentInt[0].length + posy] == 1
+//						|| board[currentInt.length + posx - 2][currentInt[0].length + posy] == 1
+//						|| board[currentInt.length + posx - 3][currentInt[0].length + posy] == 1
+//						|| board[currentInt.length + posx - 4][currentInt[0].length + posy] == 1) {
+//					newPiece();
+//				}
+//
+//			}
+//
+//		}
 	}
 	/**
 	 * this translates the ones and zeros in the board array to the frame.

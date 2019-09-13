@@ -107,6 +107,7 @@ public class Tetris extends Application  {
 				if(event.getCode() == KeyCode.DOWN) {
 					Game.stopTimer();
 					Game.moveD();
+					Game.startTimer();
 				}
 				if(event.getCode() == KeyCode.TAB) {
 					Game.printGrid();
