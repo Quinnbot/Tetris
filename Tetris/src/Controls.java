@@ -15,6 +15,7 @@ public class Controls extends Board {
 		TimerTask autoDown = new TimerTask() {
 	        public void run() {
 	            moveD();
+	            printGrid();
 	        }
 	    };
           
@@ -25,7 +26,7 @@ public class Controls extends Board {
 	public void stopTimer() {
 		
 		timer.cancel();
-		System.out.println(timer.purge());
+		timer.purge();
 		
 	}
 	
@@ -85,6 +86,7 @@ public class Controls extends Board {
 		if(checkBounds(posx-1, posy) && collision(posx-1, posy)) {//checks if the move will cause problems. 
 			drawCurrent(posx-1, posy);//if it does then it will redraw the piece in the same spot.
 		}else {
+			
 			drawCurrent(posx, posy);
 		}
 		update();
@@ -97,6 +99,7 @@ public class Controls extends Board {
 			drawCurrent(posx, posy+1);//if it does then it will redraw the piece in the same spot.
 		}else {
 			drawCurrent(posx, posy);
+			newPiece();
 		}
 		update();
 	}
@@ -105,9 +108,9 @@ public class Controls extends Board {
 	 */
 	public void printGrid(){
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		for(int x = 0; x<width; x++) {
-			for(int y = 0; y<height; y++) {
-				System.out.print(" "+board[x][y]+" ");
+		for(int x = 0; x<height; x++) {
+			for(int y = 0; y<width; y++) {
+				System.out.print(""+board[y][x]+"");
 			}
 			System.out.print("\n");
 		}

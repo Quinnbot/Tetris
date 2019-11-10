@@ -62,21 +62,37 @@ public class Board{
 	 */
 	public boolean collision(int x, int y) {
 		
-		if (currentInt[0].length + posy <= 20) {
-			return false;
-		}else {
+		//System.out.println(currentInt[0].length + y);
+		
+		//if (currentInt[0].length + y+1 > 20) {
+			//System.out.print("got here");
+		//	return false;
+		//}else {
 			int[][] boardCopy = board;
 			
 			for(int delx = 0; delx<currentInt.length; delx++) {
 				for(int dely = 0; dely<currentInt[0].length; dely++) {
+					boardCopy[x+delx][y+dely] += currentInt[delx][dely];
+				}
+			}
+			
+			for(int delx = 0; delx<currentInt.length; delx++) {
+				for(int dely = 0; dely<currentInt[0].length; dely++) {
 					if(currentInt[delx][dely]!=0) {
-					board[x+delx][y+dely] = currentInt[delx][dely];
+
+						if(boardCopy[delx][dely]>=1) {
+							//System.out.print(boardCopy[delx][dely]);
+							return false;
+						}
+						
 					}
 				}
 			}
+			
 			return true;
 			
-		}
+			
+		//}
 		
 		
 		
@@ -127,6 +143,7 @@ public class Board{
 //			}
 //
 //		}
+//		return true;
 	}
 	/**
 	 * this translates the ones and zeros in the board array to the frame.
